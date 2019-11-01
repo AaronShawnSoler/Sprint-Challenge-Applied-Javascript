@@ -17,3 +17,52 @@
     <div class="right-button"> > </div>
   </div>
 */
+
+function CreateCarousel() {
+  const carousel = document.createElement('div'),
+        leftButton = document.createElement('div'),
+        imgOne = document.createElement('img'),
+        imgTwo = document.createElement('img'),
+        imgThree = document.createElement('img'),
+        imgFour = document.createElement('img'),
+        rightButton = document.createElement('div');
+
+  carousel.classList.add('carousel');
+  leftButton.classList.add('left-button');
+  rightButton.classList.add('right-button');
+
+  imgOne.src = './assets/carousel/mountains.jpeg';
+  imgTwo.src = './assets/carousel/computer.jpeg';
+  imgThree.src = './assets/carousel/trees.jpeg';
+  imgFour.src = './assets/carousel/turntable.jpeg';
+
+  leftButton.textContent = '<';
+  rightButton.textContent = '>';
+
+  leftButton.style.zIndex = '2';
+  rightButton.style.zIndex = '2';
+
+  carousel.append(leftButton, imgOne, imgTwo, imgThree, imgFour, rightButton);
+
+  const carouselImages = [imgOne, imgTwo, imgThree, imgFour];
+  carouselImages.forEach(element => element.style.position = 'absolute');
+  let index = 0;
+
+  leftButton.addEventListener('click', event => {
+    $(carouselImages[index]).fadeOut();
+    index === 0 ? index = carouselImages.length - 1 : index += -1;
+    $(carouselImages[index]).fadeIn();
+  })
+
+  rightButton.addEventListener('click', event => {
+    $(carouselImages[index]).fadeOut();
+    index === carouselImages.length - 1 ? index = 0 : index += 1;
+    $(carouselImages[index]).fadeIn();
+  })
+
+  carouselImages[index].style.display = 'inline-block';
+
+  return carousel;
+}
+
+document.querySelector('.carousel-container').append(CreateCarousel());
